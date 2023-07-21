@@ -27,7 +27,7 @@ jobs:
 
       # changes the base-tag in index.html from '/' to "  " to match GitHub Pages repository subdirectory. Replace wasm-github-pages for repo name
       - name: Change base-tag in index.html from / to
-        run: sed -i 's/<base href="\/" \/>/<base href="\/wasm-github-pages\/" \/>/g' build/wwwroot/index.html
+        run: sed -i 's/<base href="\/" \/>/<base href="\/pages\/" \/>/g' build/wwwroot/index.html
 
       # copy index.html to 404.html to server the same file when a file is not found. This allows Blazor to handle not found requests.
       - name: Copy index.html to 404.html
