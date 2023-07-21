@@ -6,6 +6,13 @@ on:
   push:
     branches: [main]
 
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   build:
     # use ubuntu-latest image to run steps in
@@ -37,12 +44,23 @@ jobs:
       - name: Add .nojekyll file
         run: touch build/wwwroot/.nojekyll
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Commit wwwroot to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Upload GitHub Pages Artifact
+        uses: actions/upload-pages-artifact@v2.0.0
         with:
-          BRANCH: gh-pages
-          FOLDER: build/wwwroot  
+          name: github-pages
+
+  deploy:
+    # Add a dependency to the build job
+    needs: build
+
+    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+    permissions:
+      pages: write      # to deploy to Pages
+      id-token: write   # to verify the deployment originates from an appropriate source
+
+    # Deploy to the github-pages environment
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v2.0.3
