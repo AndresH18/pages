@@ -44,10 +44,12 @@ jobs:
       - name: Add .nojekyll file
         run: touch build/wwwroot/.nojekyll
 
+      # fix file permisions
       - name: Upload GitHub Pages Artifact
         uses: actions/upload-pages-artifact@v2.0.0
         with:
           name: github-pages
+          path: build
 
   deploy:
     # Add a dependency to the build job
