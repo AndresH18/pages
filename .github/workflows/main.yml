@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  deploy-to-github-pages:
+  build:
     # use ubuntu-latest image to run steps in
     runs-on: ubuntu-latest
 
@@ -36,7 +36,11 @@ jobs:
       # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders to start with underscore)
       - name: Add .nojekyll file
         run: touch build/wwwroot/.nojekyll
-        
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
       - name: Commit wwwroot to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
