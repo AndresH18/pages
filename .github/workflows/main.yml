@@ -73,7 +73,7 @@ jobs:
         env:
           MY_VARIABLE: ${{ toJson(steps.deployment.outputs.page_url) }}
         run: |
-          echo "$MY_VARIABLE" > "my_file".txt
+          echo "$MY_VARIABLE" > "my_file.txt"
           cat "my_file".txt"
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v2.0.3
