@@ -63,18 +63,12 @@ jobs:
     # Deploy to the github-pages environment
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      # url: ${{ steps.deployment.outputs.page_url }}
 
     # Deploy to the github-pages environment
     runs-on: ubuntu-latest
     
     steps:
-      - name: test ec
-        env:
-          MY_VARIABLE: ${{ toJson(steps.deployment.outputs.page_url) }}
-        run: |
-          echo "$MY_VARIABLE" > "my_file.txt"
-          cat "my_file".txt"
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v2.0.3
         with:
