@@ -69,7 +69,10 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - run: echo ${{ steps.deployment.outputs.page_url }}
+      - name: test ec
+        env:
+          MY_VARIABLE: ${{ toJson(steps.deployment.outputs.page_url) }}
+        run: echo "$MY_VARIABLE"
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v2.0.3
         with:
